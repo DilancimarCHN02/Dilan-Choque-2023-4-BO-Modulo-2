@@ -20,6 +20,7 @@ class Spaceship(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.X_POS
         self.rect.y = self.Y_POS
+        self.angle = 0
 
 
     def update(self, user_input):
@@ -31,7 +32,16 @@ class Spaceship(Sprite):
             self.move_up()
         elif user_input[pygame.K_DOWN]:
             self.move_down()
-     
+
+        if user_input[pygame.K_q]:
+            self.turn_left()
+        if user_input[pygame.K_e]:
+            self.turn_right()
+
+      
+            
+
+
     def move_left(self):
         self.rect.x -= self.SHIP_SPEED  
         if self.rect.left <0:
@@ -49,6 +59,15 @@ class Spaceship(Sprite):
     def move_down(self):
          if self.rect.y < SCREEN_HEIGHT - 70:
               self.rect.y += self.SHIP_SPEED
-    
+
+    def turn_left(self):
+        self.angle += 15
+
+    def turn_right(self):
+        self.angle -= 15
+
+
     def draw(self, screen):
-        screen.blit(self.image,(self.rect.x,self.rect.y))
+        rotated_image = pygame.transform.rotate(self.image, self.angle)  #
+        new_rect = rotated_image.get_rect(center = self.rect.center)
+        screen.blit(rotated_image, new_rect)
