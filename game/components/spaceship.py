@@ -21,6 +21,7 @@ class Spaceship(Sprite):
         self.rect.x = self.X_POS
         self.rect.y = self.Y_POS
         self.angle = 0
+        self.type = 'player'
 
 
     def update(self, user_input):
