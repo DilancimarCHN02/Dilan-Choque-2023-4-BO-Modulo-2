@@ -21,6 +21,7 @@ class Spaceship(Sprite):
         self.rect.x = self.X_POS
         self.rect.y = self.Y_POS
         self.angle = 0
+        self.total_deaths = 0 
         self.type = 'player'
 
 
@@ -77,4 +78,11 @@ class Spaceship(Sprite):
     def shoot(self,game): 
         bullet = Bullet(self)
         game.bullet_manager.add_bullet(bullet)
+
+    def is_eliminated(self):         # valiadr 
+        if self.rect.x < 0 or self.rect.x > SCREEN_WIDTH or self.rect.y < 0 or self.rect.y > SCREEN_HEIGHT:
+            self.total_deaths += 1
+            return True
+        else:
+            return False
 

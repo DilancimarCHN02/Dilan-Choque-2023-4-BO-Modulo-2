@@ -18,7 +18,9 @@ class Game:
         self.x_pos_bg = 0
         self.y_pos_bg = 0
         self.death_count = 0
-        self.score =0
+        self.score = 0
+        self.highest_score = 0 #instancia
+        self.total_deaths = 0   #instancia
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
@@ -53,7 +55,14 @@ class Game:
         user_input = pygame.key.get_pressed()
         self.player.update(user_input, self)
         self.enemy_manager.update(self)
-        self.bullet_manager.update(self)
+        self.bullet_manager.update(self, self.score)
+
+                                            # verificacion si se es eliminado 
+        if self.player.is_eliminated():
+            self.total_deaths +=1
+            if self.score > self.highest_score:
+                self.highest_score = self.score
+            self.playing = False
 
 
     def draw(self):
@@ -88,15 +97,18 @@ class Game:
         icon = pygame.transform.scale(ICON,(80,120))
         self.screen.blit(icon,(half_screen_width - 50, half_screen_height - 150))
 
-        self.menu.draw(self.screen)
+        self.menu.draw(self.screen,self.score, self.highest_score, self.total_deaths)  # los parametros
         self.menu.update(self)
 
-    def update_score(self):
-        self.score +=1 
-
+            
     def draw_score(self):
         font = pygame.font.Font(FONT_STYLE,30)
         text = font.render(f'score:  {self.score}', True,(255,255,255))
         text_rect = text.get_rect()
         text_rect.center = (1000, 50)
         self.screen.blit(text,text_rect)
+     
+    def update_score(self):         #   
+        self.score += 1
+        if self.score > self.highest_score:
+            self.highest_score = self.score
