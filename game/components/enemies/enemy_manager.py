@@ -16,10 +16,17 @@ class EnemyManager:
         for enemy in self.enemies:
             enemy.draw(screen)
 
+
     def add_enemy(self):
         if len(self.enemies) < 2:            #..............
             enemy1= Enemy(ENEMY_1)
             enemy2 = Enemy(ENEMY_2)
             self.enemies.append(enemy1)
             self.enemies.append(enemy2)
+
+
+    def reset(self):
+        self.enemies = []
+        
+
       

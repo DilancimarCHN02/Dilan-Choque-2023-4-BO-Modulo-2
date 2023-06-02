@@ -17,15 +17,20 @@ class Bullet(Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = spaceship.rect.center
         self.owner = spaceship.type
-
-
+        
 
 
     def update(self,bullets):
-        self.rect.y += self.SPEED
+        if self.owner == 'player':
+            self.rect.y -= self.SPEED
+        else:
+            self.rect.y += self.SPEED
 
-        if self.rect.y >= SCREEN_HEIGHT:
+    
+        if self.rect.y < 0 or self.rect.y >= SCREEN_HEIGHT:
             bullets.remove(self)
+
+
     
     def draw(self, screen):
         screen.blit(self.image,(self.rect.x, self.rect.y))

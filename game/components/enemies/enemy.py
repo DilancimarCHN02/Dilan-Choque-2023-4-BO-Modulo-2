@@ -2,7 +2,7 @@ import pygame
 import random
 
 from pygame.sprite import Sprite
-from game.utils.constants import  SCREEN_HEIGHT , SCREEN_WIDTH ,ENEMY_1,ENEMY_2
+from game.utils.constants import SCREEN_HEIGHT , SCREEN_WIDTH ,ENEMY_1,ENEMY_2
 from game.components.bullets.bullet import Bullet
 class Enemy(Sprite):
     Y_POS = 20
@@ -61,4 +61,5 @@ class Enemy(Sprite):
             bullet_manager.add_bullet(bullet)
             self.shooting_time += random.randint(30, 50 )
 
+  
 
