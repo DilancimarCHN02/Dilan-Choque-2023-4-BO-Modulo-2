@@ -2,7 +2,7 @@ from game.components.enemies.enemy import Enemy, ENEMY_1 ,ENEMY_2
 
 
 class EnemyManager:
-    def __init__(self):
+    def __init__(self):       
         self.enemies = []
 
 

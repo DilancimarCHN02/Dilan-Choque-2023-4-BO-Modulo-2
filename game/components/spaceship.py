@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
-from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, BULLET
+from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, BULLET, DEFAULT_TYPE
 from game.components.bullets.bullet_manager import BulletManager
 from game.components.bullets.bullet import Bullet
 
@@ -23,6 +23,10 @@ class Spaceship(Sprite):
         self.angle = 0
         self.total_deaths = 0 
         self.type = 'player'
+        self.power_up_type = DEFAULT_TYPE
+        self.has_power_up = False
+        self.power_time_up = 0
+
 
 
     def update(self, user_input, game):
@@ -79,10 +83,15 @@ class Spaceship(Sprite):
         bullet = Bullet(self)
         game.bullet_manager.add_bullet(bullet)
 
-    def is_eliminated(self):         # valiadr 
-        if self.rect.x < 0 or self.rect.x > SCREEN_WIDTH or self.rect.y < 0 or self.rect.y > SCREEN_HEIGHT:
-            self.total_deaths += 1
-            return True
-        else:
-            return False
+    def reset(self):
+        self.rect.x = self.X_POS
+        self.rect.y = self.Y_POS
+
+    def set_image(self, size = (SHIP_WIDTH,SHIP_HEIGHT),image = SPACESHIP):
+        self.image = image
+        self.image = pygame.transform.scale(self.image, size)
+
+    def reset_image(self):
+        self.set_image( size = (Spaceship.SHIP_WIDTH, Spaceship.SHIP_HEIGHT), image = SPACESHIP)
+        
 

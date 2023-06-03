@@ -20,6 +20,10 @@ HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = 'shield'
 
+# para el power_up duplacate_ship
+DUPLICATE_SHIP = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/double_spaceship.png"))
+DUPLICATE_SHIP_TYPE = 'double_spaceship'
+
 SPACESHIP = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship.png"))
 SPACESHIP_SHIELD = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship_shield.png"))
 BULLET = pygame.image.load(os.path.join(IMG_DIR, "Bullet/bullet_1.png"))
