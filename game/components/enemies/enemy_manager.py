@@ -1,4 +1,5 @@
 from game.components.enemies.enemy import Enemy, ENEMY_1 ,ENEMY_2
+from game.components.power_ups.duplicate_ship import Duplicate_ship
 
 
 class EnemyManager:
@@ -27,6 +28,7 @@ class EnemyManager:
 
     def reset(self):
         self.enemies = []
-        
 
-      
+    def get_duplicate_ship(self):
+        duplicate_ship = Duplicate_ship(self.player)
+        return duplicate_ship

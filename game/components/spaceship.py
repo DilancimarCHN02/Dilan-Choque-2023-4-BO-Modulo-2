@@ -1,6 +1,6 @@
 import pygame
 from pygame.sprite import Sprite
-from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, BULLET, DEFAULT_TYPE
+from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, DEFAULT_TYPE, SPACESHIP_SPEED_TYPE,LASER_PATH
 from game.components.bullets.bullet_manager import BulletManager
 from game.components.bullets.bullet import Bullet
 
@@ -12,6 +12,7 @@ class Spaceship(Sprite):
     X_POS = (SCREEN_WIDTH // 2) - SHIP_WIDTH
     Y_POS = 500
     SHIP_SPEED = 10
+    
 
     
     def __init__(self):
@@ -22,14 +23,18 @@ class Spaceship(Sprite):
         self.rect.y = self.Y_POS
         self.angle = 0
         self.total_deaths = 0 
-        self.type = 'player'
+        self.type = 'player'    
         self.power_up_type = DEFAULT_TYPE
         self.has_power_up = False
+        self.is_firing = False
         self.power_time_up = 0
+        self.ship_speed = 10
+        
 
 
 
     def update(self, user_input, game):
+    
         if user_input[pygame.K_LEFT]:
             self.move_left()
         elif user_input[pygame.K_RIGHT]:
@@ -49,22 +54,22 @@ class Spaceship(Sprite):
 
 
     def move_left(self):
-        self.rect.x -= self.SHIP_SPEED  
-        if self.rect.left <0:
-             self.rect.x =SCREEN_WIDTH - self.SHIP_SPEED
+        self.rect.x -= self.ship_speed  
+        if self.rect.left < 0:
+             self.rect.x = SCREEN_WIDTH - self.ship_speed
 
     def move_right(self):
-        self.rect.x += self.SHIP_SPEED  
-        if self.rect.left >= SCREEN_WIDTH - self.SHIP_SPEED:
+        self.rect.x += self.ship_speed  
+        if self.rect.left >= SCREEN_WIDTH - self.ship_speed:
              self.rect.x = 0                  
 
     def move_up(self):
          if self.rect.y > SCREEN_HEIGHT // 2:
-              self.rect.y -= self.SHIP_SPEED
+              self.rect.y -= self.ship_speed
          
     def move_down(self):
          if self.rect.y < SCREEN_HEIGHT - 70:
-              self.rect.y += self.SHIP_SPEED
+              self.rect.y += self.ship_speed
 
     def turn_left(self):
         self.angle += 15
@@ -82,6 +87,7 @@ class Spaceship(Sprite):
     def shoot(self,game): 
         bullet = Bullet(self)
         game.bullet_manager.add_bullet(bullet)
+
 
     def reset(self):
         self.rect.x = self.X_POS

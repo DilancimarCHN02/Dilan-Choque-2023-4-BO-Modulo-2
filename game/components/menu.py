@@ -1,5 +1,6 @@
-import pygame
-from game.utils.constants import FONT_STYLE, SCREEN_HEIGHT ,SCREEN_WIDTH
+import pygame.mixer
+
+from game.utils.constants import FONT_STYLE, SCREEN_HEIGHT ,SCREEN_WIDTH, MUSIC_PATH
 
 class Menu:
     HALF_SCREEN_HEIGHT = SCREEN_HEIGHT //2
@@ -8,8 +9,10 @@ class Menu:
     def __init__(self, screen):
         screen.fill((255, 255, 255))
         self.font = pygame.font.Font(FONT_STYLE, 30)
+        pygame.mixer.music.load(MUSIC_PATH)
+        pygame.mixer.music.play(-1)
       
-       
+            
     def update(self, game):
         pygame.display.update()
         self.handle_events_on_menu(game)
